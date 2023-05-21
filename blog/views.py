@@ -25,7 +25,10 @@ def crear_reseña(request):
            data = formulario.cleaned_data  # es un diccionario
            titulo = data["titulo"]
            subtitulo = data["subtitulo"]
-           reseña = Reseña(titulo=titulo, subtitulo=subtitulo)  # lo crean solo en RAM
+           cuerpo = data["cuerpo"]
+           autor = data["autor"]
+           fecha = data["fecha"]
+           reseña = Reseña(titulo=titulo, subtitulo=subtitulo, cuerpo=cuerpo, autor=autor, fecha=fecha)  # lo crean solo en RAM
            reseña.save()  # Lo guardan en la Base de datos
 
            # Redirecciono al usuario a la lista de cursos
