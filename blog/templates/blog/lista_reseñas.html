@@ -1,0 +1,32 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block contenido %}
+
+<section>
+    <div>
+      <h1>Reseñas</h1>
+      <a href="{% url 'crear_reseña' %}">Crear reseña</a>  
+      <table class="table">
+        <tbody>
+          {% for reseña in reseñas %}
+          <tr>
+            <td>{{ reseña.titulo }}</td>
+            <td>{{ reseña.subtitulo }}</td>
+            <td>
+              <form action="{% url 'eliminar_reseña' reseña.id %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="eliminar"/>
+              </form>
+            </td>
+     
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+   
+    </div>
+   </section>
+   
+
+{% endblock contenido %}
