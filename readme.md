@@ -10,4 +10,4 @@
 
 # Intrucciones para entrar en el panel administrativo de Django:
 + crear un superuser en la consola: python manage.py create superuser
-+ acceder con user y password: 
++ acceder con user y password: user = pachu, password = 12345678
