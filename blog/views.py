@@ -44,5 +44,5 @@ def eliminar_reseña(request, id):
    reseña = Reseña.objects.get(id=id)
    if request.method == "POST":
        reseña.delete()
-       url_exitosa = reverse('lista_reseñas')
+       url_exitosa = reverse('listar_reseñas')
        return redirect(url_exitosa)
