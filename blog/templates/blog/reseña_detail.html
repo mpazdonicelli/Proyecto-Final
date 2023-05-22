@@ -1,0 +1,24 @@
+{% extends "blog/base.html" %}
+
+{% block contenido %}
+
+<p>
+  <strong>Título:</strong> {{object.titulo}}
+</p>
+<p>
+  <strong>Subtítulo:</strong> {{object.subtitulo}}
+</p>
+<p>
+{{object.cuerpo}}
+</p>
+<p>
+  <strong>Autor:</strong> {{object.autor}}
+</p>
+<p>
+  <strong>Fecha:</strong> {{object.fecha}}
+</p>
+
+<br>
+<a href="{% url 'listar_reseñas' %}">Volver a lista</a>
+
+{% endblock contenido %}

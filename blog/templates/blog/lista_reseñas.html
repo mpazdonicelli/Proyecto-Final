@@ -14,6 +14,9 @@
             <td>{{ reseña.titulo }}</td>
             <td>{{ reseña.subtitulo }}</td>
             <td>
+              <a href="{% url 'ver_reseña' reseña.id %}">Ver más</a>
+            </td>
+            <td>
               <a href="{% url 'editar_reseña' reseña.id %}">Editar</a>
             </td>
             <td> 

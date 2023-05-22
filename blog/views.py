@@ -3,6 +3,8 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 from blog.models import Reseña
 from blog.forms import ReseñaForm
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 
@@ -77,6 +79,10 @@ def editar_reseña(request, id):
         formulario = ReseñaForm(initial=inicial)
     return render(
         request=request,
-        template_name='blog/crear_reseña.html', # CORREGIR
+        template_name='blog/crear_reseña.html',
         context={'formulario': formulario},
     )
+
+class ReseñaDetailView(DetailView):
+    model = Reseña
+    success_url = reverse_lazy('lista_reseñas')
