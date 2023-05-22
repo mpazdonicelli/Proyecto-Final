@@ -49,3 +49,34 @@ def eliminar_reseña(request, id):
        reseña.delete()
        url_exitosa = reverse('listar_reseñas')
        return redirect(url_exitosa)
+   
+def editar_reseña(request, id):
+    reseña = Reseña.objects.get(id=id)
+    if request.method == "POST":
+        formulario = ReseñaForm(request.POST)
+
+        if formulario.is_valid():
+            data = formulario.cleaned_data
+            reseña.titulo = data['titulo']
+            reseña.subtitulo = data['subtitulo']
+            reseña.cuerpo = data['cuerpo']
+            reseña.autor = data["autor"]
+            reseña.fecha = data["fecha"]
+            reseña.save()
+
+            url_exitosa = reverse('listar_reseñas')
+            return redirect(url_exitosa)
+    else:  # GET
+        inicial = {
+            'titulo': reseña.titulo,
+            'subtitulo': reseña.subtitulo,
+            'cuerpo': reseña.cuerpo,
+            'autor': reseña.autor,
+            'fecha': reseña.fecha
+        }
+        formulario = ReseñaForm(initial=inicial)
+    return render(
+        request=request,
+        template_name='blog/crear_reseña.html', # CORREGIR
+        context={'formulario': formulario},
+    )
