@@ -2,6 +2,11 @@
 {% load static %}
 
 {% block contenido %}
+{% if user.is_authenticated %}
+<h1>¡Hola, {{user.first_name}}!</h1>
+<h3> ¡Compartí tus reseñas de libros, música, series y más!</h3>
+{% else %}
 <h1>BIENVENIDO A RESEÑARTE</h1>
 <h3> ¡Compartí tus reseñas de libros, música, series y más!</h3>
+{% endif %}
 {% endblock contenido %}
