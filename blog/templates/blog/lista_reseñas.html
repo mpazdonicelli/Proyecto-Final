@@ -9,10 +9,14 @@
       <a href="{% url 'crear_reseña' %}">Crear reseña</a>  
       <table class="table">
         <tbody>
+          <tr>
+            <th>Título</th>
+            <th>Autor</th>
+          </tr>
           {% for reseña in reseñas %}
           <tr>
             <td>{{ reseña.titulo }}</td>
-            <td>{{ reseña.subtitulo }}</td>
+            <td>{{ reseña.autor }}</td>
             <td>
               <a href="{% url 'ver_reseña' reseña.id %}">Ver más</a>
             </td>
