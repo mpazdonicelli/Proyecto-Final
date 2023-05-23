@@ -17,11 +17,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from proyecto_reseñas.views import inicio, about
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', inicio, name="inicio"),
     path('about/', about, name= "about"),
     path('blog/', include('blog.urls')),
-    path('perfiles/', include('perfiles.urls') )
+    path('perfiles/', include('perfiles.urls'))
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
