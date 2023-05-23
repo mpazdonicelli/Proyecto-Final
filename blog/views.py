@@ -19,6 +19,7 @@ def listar_reseñas(request):
    )
    return http_response
 
+@login_required
 def crear_reseña(request):
    if request.method == "POST":
        formulario = ReseñaForm(request.POST)
@@ -44,13 +45,15 @@ def crear_reseña(request):
    )
    return http_response
 
+@login_required
 def eliminar_reseña(request, id):
    reseña = Reseña.objects.get(id=id)
    if request.method == "POST":
        reseña.delete()
        url_exitosa = reverse('listar_reseñas')
        return redirect(url_exitosa)
-   
+
+@login_required   
 def editar_reseña(request, id):
     reseña = Reseña.objects.get(id=id)
     if request.method == "POST":
