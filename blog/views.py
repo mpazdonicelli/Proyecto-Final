@@ -24,17 +24,16 @@ def crear_reseña(request):
        formulario = ReseñaForm(request.POST)
 
        if formulario.is_valid():
-           data = formulario.cleaned_data  # es un diccionario
+           data = formulario.cleaned_data  
            titulo = data["titulo"]
            subtitulo = data["subtitulo"]
            cuerpo = data["cuerpo"]
            autor = data["autor"]
            fecha = data["fecha"]
-           reseña = Reseña(titulo=titulo, subtitulo=subtitulo, cuerpo=cuerpo, autor=autor, fecha=fecha)  # lo crean solo en RAM
-           reseña.save()  # Lo guardan en la Base de datos
+           reseña = Reseña(titulo=titulo, subtitulo=subtitulo, cuerpo=cuerpo, autor=autor, fecha=fecha)  
+           reseña.save()
 
-           # Redirecciono al usuario a la lista de cursos
-           url_exitosa = reverse('listar_reseñas')  # estudios/cursos/
+           url_exitosa = reverse('listar_reseñas')  
            return redirect(url_exitosa)
    else:  # GET
        formulario = ReseñaForm()
@@ -55,15 +54,15 @@ def eliminar_reseña(request, id):
 def editar_reseña(request, id):
     reseña = Reseña.objects.get(id=id)
     if request.method == "POST":
-        formulario = ReseñaForm(request.POST)
+        formulario = ReseñaForm(request.POST, instance=reseña)
 
         if formulario.is_valid():
             data = formulario.cleaned_data
             reseña.titulo = data['titulo']
             reseña.subtitulo = data['subtitulo']
             reseña.cuerpo = data['cuerpo']
-            reseña.autor = data["autor"]
-            reseña.fecha = data["fecha"]
+            reseña.autor = data['autor']
+            reseña.fecha = data['fecha']
             reseña.save()
 
             url_exitosa = reverse('listar_reseñas')
