@@ -3,12 +3,10 @@
 {% block contenido %}
 
 <h1>
-Usuario: {{object.username}}
+Usuario: {{user.username}}
 </h1>
-<h3>
-Nombre: {{object.name}} {{object.surname}}
-</h3>
 
+<img src="{{ user.avatar.imagen.url }}" />
 <br>
 <a href="{% url 'editar_perfil' %}">Editar datos</a>
 <br>

@@ -6,7 +6,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.views import LogoutView
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import UpdateView
+from django.views.generic import UpdateView, DetailView
 
 from perfiles.forms import UserRegisterForm, UserUpdateForm
 
@@ -94,3 +94,4 @@ def ver_perfil(request):
         context=contexto,
     )
     return http_response
+
