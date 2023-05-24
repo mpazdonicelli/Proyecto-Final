@@ -73,7 +73,7 @@ def agregar_avatar(request):
       formulario = AvatarFormulario(request.POST, request.FILES) # Aquí me llega toda la info del formulario html
 
       if formulario.is_valid():
-          avatar = formulario.save()
+          avatar = formulario.save(commit=False)
           avatar.user = request.user
           avatar.save()
           url_exitosa = reverse('inicio')
