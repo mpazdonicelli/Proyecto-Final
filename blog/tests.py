@@ -22,8 +22,8 @@ class ReseñaTests(TestCase):
         self.assertEqual(reseña.fecha, "2023-5-5")
 
     def test_reseña_str(self):
-        reseña = Reseña(titulo="Título")
+        reseña = Reseña(titulo="Título", subtitulo="Subtítulo")
         reseña.save()
 
         # Compruebo el str funciona como se desea
-        self.assertEqual(reseña.__str__(), "Título")
+        self.assertEqual(reseña.__str__(), "Título - Subtítulo")
