@@ -22,7 +22,7 @@ class ReseñaTests(TestCase):
         self.assertEqual(reseña.fecha, 2023-5-5)
 
     def test_reseña_str(self):
-        reseña = Reseña(titulo="Título")
+        reseña = Reseña(titulo="Título", subtitulo="Subtítulo", cuerpo="Cuerpo", autor="Autor", fecha=2023-5-5)
         reseña.save()
 
         # Compruebo el str funciona como se desea
