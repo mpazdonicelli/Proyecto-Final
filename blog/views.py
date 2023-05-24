@@ -57,7 +57,7 @@ def eliminar_reseña(request, id):
 def editar_reseña(request, id):
     reseña = Reseña.objects.get(id=id)
     if request.method == "POST":
-        formulario = ReseñaForm(request.POST, instance=reseña)
+        formulario = ReseñaForm(request.POST)
 
         if formulario.is_valid():
             data = formulario.cleaned_data
