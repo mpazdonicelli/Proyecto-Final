@@ -13,7 +13,7 @@ class UserUpdateForm(forms.ModelForm):
 
    class Meta:
        model = User
-       fields = ['last_name', 'first_name', 'email']
+       fields = ['last_name', 'first_name', 'email', 'password']
 
 
 class AvatarFormulario(forms.ModelForm):
