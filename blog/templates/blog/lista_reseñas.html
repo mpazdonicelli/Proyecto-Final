@@ -6,6 +6,7 @@
 <section>
     <div>
       <h1>Reseñas</h1>
+      {% if reseñas %}
       <a href="{% url 'crear_reseña' %}">Crear reseña</a>
       <table class="table">
         <tbody>
@@ -33,6 +34,10 @@
           {% endfor %}
         </tbody>
       </table>
+      {% else %}
+      <h5>No hay reseñas aún</h5>
+      <a href="{% url 'crear_reseña' %}">Crear reseña</a>
+      {% endif %}
     </div>
    </section>
    
