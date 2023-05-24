@@ -5,11 +5,12 @@
 <h1>
 Usuario: {{user.username}}
 </h1>
-
 <img src="{{ user.avatar.imagen.url }}" alt="Foto de perfil" style="width: 300px; height: 300px;"/>
 <br>
-<a href="{% url 'editar_perfil' %}">Editar datos</a>
-<br>
 <a href="{% url 'agregar_avatar' %}">Editar avatar</a>
-
+<p>Nombre: {{user.first_name}}</p>
+<p>Apellido: {{user.last_name}}</p>
+<p>Email: {{ user.email}}</p>
+<br>
+<a href="{% url 'editar_perfil' %}">Editar datos</a>
 {% endblock contenido %}
