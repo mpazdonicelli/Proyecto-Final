@@ -1,0 +1,17 @@
+{% extends "blog/base.html" %}
+
+{% block contenido %}
+
+<h1>
+Usuario: {{object.username}}
+</h1>
+<h3>
+Nombre: {{object.name}} {{object.surname}}
+</h3>
+
+<br>
+<a href="{% url 'editar_perfil' %}">Editar datos</a>
+<br>
+<a href="{% url 'agregar_avatar' %}">Agregar avatar</a>
+
+{% endblock contenido %}
