@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 from blog.models import Reseña
@@ -21,69 +21,62 @@ def listar_reseñas(request):
 
 @login_required
 def crear_reseña(request):
-   if request.method == "POST":
-       formulario = ReseñaForm(request.POST)
-
-       if formulario.is_valid():
-           data = formulario.cleaned_data  
-           titulo = data["titulo"]
-           subtitulo = data["subtitulo"]
-           cuerpo = data["cuerpo"]
-           autor = data["autor"]
-           fecha = data["fecha"]
-           reseña = Reseña(titulo=titulo, subtitulo=subtitulo, cuerpo=cuerpo, autor=autor, fecha=fecha)  
-           reseña.save()
-
-           url_exitosa = reverse('listar_reseñas')  
-           return redirect(url_exitosa)
-   else:  # GET
-       formulario = ReseñaForm()
-   http_response = render(
-       request=request,
-       template_name='blog/crear_reseña.html',
-       context={'formulario': formulario}
-   )
-   return http_response
+    if request.method == "POST":
+        formulario = ReseñaForm(request.POST)
+        if formulario.is_valid():
+            reseña= formulario.save(commit=False)
+            reseña.autor=request.user
+            reseña.save()
+            return redirect('listar_reseñas')
+        else:
+            formulario=ReseñaForm()
+        return render(request, 'blog/crear_reseña.html', {'formulario': formulario})
 
 @login_required
 def eliminar_reseña(request, id):
-   reseña = Reseña.objects.get(id=id)
-   if request.method == "POST":
-       reseña.delete()
-       url_exitosa = reverse('listar_reseñas')
-       return redirect(url_exitosa)
+    reseña = Reseña.objects.get(id=id)
+    if request.user == reseña.autor:
+       if request.method == "POST":
+        reseña.delete()
+        url_exitosa = reverse('listar_reseñas')
+        return redirect(url_exitosa)
+    else:
+        return HttpResponse ("No tenés permiso para eliminar esta reseña.")
+
 
 @login_required   
 def editar_reseña(request, id):
     reseña = Reseña.objects.get(id=id)
-    if request.method == "POST":
-        formulario = ReseñaForm(request.POST)
+    if request.user == reseña.autor:
+        if request.method == "POST":
+            formulario = ReseñaForm(request.POST)
+            if formulario.is_valid():
+                data = formulario.cleaned_data
+                reseña.titulo = data['titulo']
+                reseña.subtitulo = data['subtitulo']
+                reseña.cuerpo = data['cuerpo']
+                reseña.autor = data['autor']
+                reseña.fecha = data['fecha']
+                reseña.save()
 
-        if formulario.is_valid():
-            data = formulario.cleaned_data
-            reseña.titulo = data['titulo']
-            reseña.subtitulo = data['subtitulo']
-            reseña.cuerpo = data['cuerpo']
-            reseña.autor = data['autor']
-            reseña.fecha = data['fecha']
-            reseña.save()
-
-            url_exitosa = reverse('listar_reseñas')
-            return redirect(url_exitosa)
-    else:  # GET
-        inicial = {
-            'titulo': reseña.titulo,
-            'subtitulo': reseña.subtitulo,
-            'cuerpo': reseña.cuerpo,
-            'autor': reseña.autor,
-            'fecha': reseña.fecha
-        }
-        formulario = ReseñaForm(initial=inicial)
-    return render(
-        request=request,
-        template_name='blog/crear_reseña.html',
-        context={'formulario': formulario},
-    )
+                url_exitosa = reverse('listar_reseñas')
+                return redirect(url_exitosa)
+        else:  # GET
+            inicial = {
+                'titulo': reseña.titulo,
+                'subtitulo': reseña.subtitulo,
+                'cuerpo': reseña.cuerpo,
+                'autor': reseña.autor,
+                'fecha': reseña.fecha
+            }
+            formulario = ReseñaForm(initial=inicial)
+        return render(
+            request=request,
+            template_name='blog/crear_reseña.html',
+            context={'formulario': formulario},
+        )
+    else:
+        return HttpResponse("No tenés permiso para editar esta reseña.")
 
 class ReseñaDetailView(DetailView):
     model = Reseña
