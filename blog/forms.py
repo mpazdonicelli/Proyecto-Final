@@ -1,9 +1,10 @@
 from django import forms
+from .models import Reseña
 
 
-class ReseñaForm(forms.Form):
-    titulo = forms.CharField(required=True, max_length=64) 
-    subtitulo = forms.CharField(required=True, max_length=64) 
-    cuerpo = forms.CharField(required=True, widget=forms.Textarea())
-    autor = forms.CharField(max_length=64)
-    fecha = forms.DateField()
+
+
+class ReseñaForm(forms.ModelForm):
+    class Meta:
+        model = Reseña
+        fields = ['titulo', 'subtitulo', 'cuerpo', 'fecha']
