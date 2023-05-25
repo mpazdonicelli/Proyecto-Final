@@ -61,7 +61,7 @@ class CustomLogoutView(LogoutView):
 
 class MiPerfilUpdateView(LoginRequiredMixin, UpdateView):
    form_class = UserUpdateForm
-   success_url = reverse_lazy('inicio')
+   success_url = reverse_lazy('ver_perfil')
    template_name = 'perfiles/formulario_perfil.html'
 
    def get_object(self, queryset=None):
@@ -76,7 +76,7 @@ def agregar_avatar(request):
           avatar = formulario.save(commit=False)
           avatar.user = request.user
           avatar.save()
-          url_exitosa = reverse('inicio')
+          url_exitosa = reverse('ver_perfil')
           return redirect(url_exitosa)
   else:  # GET
       formulario = AvatarFormulario()

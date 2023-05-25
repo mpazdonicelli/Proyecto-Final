@@ -58,7 +58,7 @@ def editar_reseña(request, id):
                 reseña.titulo = data['titulo']
                 reseña.subtitulo = data['subtitulo']
                 reseña.cuerpo = data['cuerpo']
-                reseña.autor = data['autor']
+                reseña.autor = request.user
                 reseña.fecha = data['fecha']
                 reseña.save()
 
