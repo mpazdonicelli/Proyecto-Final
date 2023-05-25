@@ -28,9 +28,12 @@ def crear_reseña(request):
             reseña.autor=request.user
             reseña.save()
             return redirect('listar_reseñas')
-        else:
+    else:
             formulario=ReseñaForm()
-        return render(request, 'blog/crear_reseña.html', {'formulario': formulario})
+    return render(request, 'blog/crear_reseña.html', {'formulario': formulario})
+
+
+
 
 @login_required
 def eliminar_reseña(request, id):
